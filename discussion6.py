@@ -1,5 +1,6 @@
 import unittest
 import os
+import csv
 
 
 def load_csv(f):
@@ -17,6 +18,29 @@ def load_csv(f):
 
     base_path = os.path.abspath(os.path.dirname(__file__))
     full_path = os.path.join(base_path, f)
+    infile = open(full_path)
+    csvFile = csv.reader(infile)
+    header = next(csvFile)
+    print(header)
+    print('\n')
+    dicts = {}
+    list=[]
+    for row in csvFile:
+        list.append(row)
+    dict_2020 = {}
+    for i in range(len(list)):
+        dict_2020[list[i][0]] = list[i][1]
+    dict_2021 = {}
+    for i in range(len(list)):
+        dict_2021[list[i][0]] = list[i][2]
+    dict_2022 = {}
+    for i in range(len(list)):
+        dict_2022[list[i][0]] = list[i][3]
+    dicts[header[1]] = dict_2020
+    dicts[header[2]] = dict_2021
+    dicts[header[3]] = dict_2022
+    return dicts
+    
     # use this 'full_path' variable as the file that you open
 
 def get_annual_max(d):
