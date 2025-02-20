@@ -21,8 +21,6 @@ def load_csv(f):
     infile = open(full_path)
     csvFile = csv.reader(infile)
     header = next(csvFile)
-    print(header)
-    print('\n')
     dicts = {}
     list=[]
     for row in csvFile:
@@ -55,7 +53,18 @@ def get_annual_max(d):
     Note: Don't strip or otherwise modify strings. Do not change datatypes except where necessary.
         You'll have to change vals to int to compare them. 
     '''
-    pass
+    list = []
+    for key in d.keys():
+        value = d[key]
+        highest = 0
+        currentIndex = 'HI'
+        for keys in value.keys():
+            if highest < int(value[keys]):
+                highest = int(value[keys])
+                currentIndex = keys
+        tup = (key, currentIndex, highest)
+        list.append(tup)
+    return list
 
 def get_month_avg(d):
     '''
@@ -69,7 +78,17 @@ def get_month_avg(d):
     Note: Don't strip or otherwise modify strings. Do not change datatypes except where necessary. 
         You'll have to make the vals int or float here and round the avg to pass tests.
     '''
-    pass
+    dict_ave = {}
+    for key in d.keys():
+        sum = 0
+        count = 12
+        ave = 0
+        value = d[key]
+        for keys in value.keys():
+            sum += int(value[keys])
+        ave = (sum/count)
+        dict_ave[key] = ave
+    return dict_ave
 
 class dis7_test(unittest.TestCase):
     '''
